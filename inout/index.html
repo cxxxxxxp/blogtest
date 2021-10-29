@@ -404,7 +404,29 @@
             </div>
             <div class="plugin-allbox">
               <div data-key="Calendar_15" class="dplugin-box" style="margin-top: 0px; margin-bottom: 0px; text-align: center;">
-                <div class="dplugin-mobile dplugin-mobile-dCalendar dCalendar-vie" style="font-size: 14px; font-family: 微软雅黑; font-weight: normal; font-style: normal; color: rgb(96, 98, 102); text-decoration: none; text-align: center; line-height: 20px; letter-spacing: 0px; --darkreader-inline-color:rgb(96, 98, 102);" data-darkreader-inline-color=""><span style="font-size: 14px; font-family: 微软雅黑; font-weight: normal; font-style: normal; color: rgb(96, 98, 102); text-decoration: none; text-align: center; line-height: 20px; letter-spacing: 0px; --darkreader-inline-color:rgb(96, 98, 102);" data-darkreader-inline-color="">2021-10-29 17:03:36</span></div>
+                <div class="dplugin-mobile dplugin-mobile-dCalendar dCalendar-vie" style="font-size: 14px; font-family: 微软雅黑; font-weight: normal; font-style: normal; color: rgb(96, 98, 102); text-decoration: none; text-align: center; line-height: 20px; letter-spacing: 0px; --darkreader-inline-color:rgb(96, 98, 102);" data-darkreader-inline-color=""><span style="font-size: 14px; font-family: 微软雅黑; font-weight: normal; font-style: normal; color: rgb(96, 98, 102); text-decoration: none; text-align: center; line-height: 20px; letter-spacing: 0px; --darkreader-inline-color:rgb(96, 98, 102);" data-darkreader-inline-color="">
+                  <!--2021-10-29 17:03:36-->
+                  
+                    <p id="ymd" style="font-size: 14px; font-family: 微软雅黑; font-weight: normal; font-style: normal; color: rgb(96, 98, 102); text-decoration: none; text-align: center; line-height: 20px; letter-spacing: 0px; --darkreader-inline-color:rgb(96, 98, 102);"></p>
+                        <script>
+                          var date = new Date()<!--获得日期数据-->
+                          var y = date.getFullYear();<!--年-->
+                          var m = date.getMonth()+1;<!--月，这里的月份必须要+1才是当前月份-->
+                          var d = date.getDate(); <!--日，getDay是获得当前星期几（0-6），getDate是获得当前日期-->
+                          var h = date.getHours();
+                          var min = date.getMinutes();
+                          var sec = date.getSeconds();
+
+                          if(m<10) m="0"+m;
+                          if(d<10) d="0"+d;
+                          if(h<10) h="0"+h;
+                          if(min<10) min="0"+min;
+                          if(sec<10) sec="0"+sec;
+                          document.getElementById("ymd").innerText = y+"-"+m+"-"+d+" "+h+":"+min+":"+sec;
+                        </script>
+                        <script type="text/javascript" src="dtxt1.js"></script>
+                  
+                  </span></div>
               </div>
             </div>
           </div>
