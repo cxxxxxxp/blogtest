@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>祝你生日快乐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+        
+        .container {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: scale(0.8);
+            animation: popIn 1s forwards;
+        }
+        
+        @keyframes popIn {
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            font-size: 2rem;
+        }
+        
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .gift-box {
+            width: 100px;
+            height: 100px;
+            background-color: #ff9a9e;
+            margin: 20px auto;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+        
+        .ribbon {
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b6b;
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+        }
+        
+        .gift {
+            width: 80px;
+            height: 80px;
+            background-color: #ff6b6b;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .gift-prompt {
+            margin: 20px 0;
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        .gift-arrow {
+            margin-left: 5px;
+        }
+        
+        .love-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .love-heart {
+            position: absolute;
+            color: #ff6b6b;
+            font-size: 2rem;
+            animation: floatHeart 5s ease-in-out infinite;
+        }
+        
+        @keyframes floatHeart {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="love-hearts" id="loveHearts"></div>
+    
+    <div class="container">
+        <h1>生日快乐，我的宝贝！🎂</h1>
+        
+        <p>这是我们一起走过的第三个生日，时间转瞬，与你共度使其无比珍贵。💕</p>
+        
+        <p>你的诞生是我的幸运，你的存在是我的幸福。🎁</p>
+        
+        <p>愿未来的日子，天天开心，事事顺遂。🎉</p>
+        
+        <div class="gift-prompt">点击查收生日礼物 ↓</div>
+        <div class="gift-box" onclick="window.location.href='今天.html';">
+            <div class="ribbon"></div>
+            <div class="gift">🎁</div>
+        </div>
+    </div>
+    
+    <script>
+        // 创建星星背景
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starsCount = 100;
+            
+            for (let i = 0; i < starsCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 2}s`;
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // 创建爱心动画
+        function createLoveHearts() {
+            const heartsContainer = document.getElementById('loveHearts');
+            const heartsCount = 50; // 增加爱心数量
+            
+            for (let i = 0; i < heartsCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('love-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = `${Math.random() * 100}%`; // 纵向也随机分布
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // 页面加载完成后执行
+        window.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            createLoveHearts();
+        });
+    </script>
+</body>
+</html>

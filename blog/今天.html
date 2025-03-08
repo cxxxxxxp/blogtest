@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3月2日都发生了什么？</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-container {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+        }
+        
+        .event-card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transform: scale(0.8);
+            animation: popIn 1s forwards;
+            position: relative;
+        }
+        
+        @keyframes popIn {
+            to {
+                transform: scale(1);
+            }
+        }
+        
+        .event-date {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .event-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            width: 80%;
+            max-width: 600px;
+        }
+        
+        .nav-button {
+            background-color: rgba(255, 107, 107, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-button:hover {
+            background-color: #ff6b6b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-button.inactive {
+            background-color: rgba(255, 107, 107, 0.4);
+            cursor: not-allowed;
+        }
+        
+        .nav-button.inactive:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .future-button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .future-button:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+        }
+        
+        .emoji {
+            font-size: 1.5rem;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>3月2日都发生了什么？</h1>
+    
+    <div class="card-container">
+        <div class="event-card" id="eventCard">
+            <div class="event-date" id="eventDate">1943年3月2日</div>
+            <div class="event-content" id="eventContent">世界上第一支女子足球队在英国成立，开启了女性在体育领域的全新篇章。</div>
+        </div>
+    </div>
+    
+    <div class="navigation-buttons" id="navButtons">
+        <button class="nav-button" id="prevButton" onclick="showPreviousEvent()">上一个</button>
+        <button class="nav-button" id="nextButton" onclick="showNextEvent()">下一个</button>
+    </div>
+    
+    <button class="future-button" id="futureButton" onclick="window.location.href='蛋糕.html';">你猜会发生什么？</button>
+    
+    <script>
+        // 定义事件数组
+        const events = [
+            {
+                date: "1943年3月2日",
+                content: "世界上第一支女子足球队在英国成立，开启了女性在体育领域的全新篇章。"
+            },
+            {
+                date: "1974年3月2日",
+                content: "世界上第一朵基因改良的蓝色玫瑰在日本培育成功，为花卉世界增添了新的色彩。"
+            },
+            {
+                date: "1989年3月2日",
+                content: "全球第一张可降解环保纸张专利诞生，为环境保护事业带来了新的希望。"
+            },
+            {
+                date: "1998年3月2日",
+                content: "<span class='heart'>❤️</span> 这一天，你来到了这个世界，为它带来了无尽的色彩和可能。"
+            },
+            {
+                date: "2023年3月2日",
+                content: "我们一起漫步在玉渊潭，欣赏着美丽的樱花 <span class='emoji'>🌸</span>，那一刻仿佛时间都为我们的爱情停留。"
+            },
+            {
+                date: "2024年3月2日",
+                content: "我飞去深圳，我们在海边拥抱，让海风见证我们的爱情 <span class='emoji'>🌊</span>。"
+            },
+            {
+                date: "2025年3月2日",
+                content: "..."
+            }
+        ];
+        
+        // 当前事件索引
+        let currentIndex = 0;
+        
+        // 初始化显示第一个事件
+        function init() {
+            updateEventCard(0);
+            updateNavigationButtons();
+        }
+        
+        // 更新事件卡片内容
+        function updateEventCard(index) {
+            const event = events[index];
+            document.getElementById('eventDate').innerHTML = event.date;
+            document.getElementById('eventContent').innerHTML = event.content;
+            
+            // 重置动画
+            document.getElementById('eventCard').style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                document.getElementById('eventCard').style.transform = 'scale(1)';
+            }, 50);
+        }
+        
+        // 更新导航按钮状态
+        function updateNavigationButtons() {
+            const prevButton = document.getElementById('prevButton');
+            const nextButton = document.getElementById('nextButton');
+            const futureButton = document.getElementById('futureButton');
+            
+            // 更新按钮状态
+            if (currentIndex === 0) {
+                prevButton.classList.add('inactive');
+            } else {
+                prevButton.classList.remove('inactive');
+            }
+            
+            if (currentIndex === events.length - 1) {
+                nextButton.classList.add('inactive');
+                futureButton.style.display = 'block';
+            } else {
+                nextButton.classList.remove('inactive');
+                futureButton.style.display = 'none';
+            }
+        }
+        
+        // 显示上一个事件
+        function showPreviousEvent() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateEventCard(currentIndex);
+                updateNavigationButtons();
+            }
+        }
+        
+        // 显示下一个事件
+        function showNextEvent() {
+            if (currentIndex < events.length - 1) {
+                currentIndex++;
+                updateEventCard(currentIndex);
+                updateNavigationButtons();
+            }
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

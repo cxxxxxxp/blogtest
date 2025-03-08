@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>看看愿望会不会实现？</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: #ff8e8e;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tarot-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            width: 80%;
+            max-width: 600px;
+        }
+        
+        .tarot-card {
+            position: relative;
+            width: 100%;
+            padding-bottom: 133%; /* 保持4:3的宽高比 */
+            perspective: 1000px;
+            cursor: pointer;
+            transition: all 0.8s ease;
+        }
+        
+        .tarot-card-back, .tarot-card-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            backface-visibility: hidden;
+            transition: transform 1.5s ease;
+        }
+        
+        .tarot-card-back {
+            background-color: white;
+            transform: rotateY(0deg);
+        }
+        
+        .tarot-card-front {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: rotateY(180deg);
+            display: none;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .tarot-card.flipped .tarot-card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .tarot-card.flipped .tarot-card-front {
+            display: flex;
+            transform: rotateY(0deg);
+        }
+        
+        .tarot-card.disappear {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .tarot-card.selected {
+            grid-column: 2;
+            grid-row: 2;
+            z-index: 10;
+            transform: scale(2);
+        }
+        
+        .tarot-card.selected .tarot-card-front-content h3 {
+            font-size: 0.6rem;
+            margin-bottom: 15px;
+        }
+        
+        .tarot-card.selected .tarot-card-front-content p {
+            font-size: 0.55rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .tarot-card.selected .surprise-button {
+            font-size: 0.5rem;
+            padding: 5px 10px;
+        }
+        
+        .tarot-card-front-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .tarot-card-front-content p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .surprise-button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .surprise-button:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>看看愿望会不会实现？</h1>
+    <h2>抽一张牌占卜看看！</h2>
+    
+    <div class="tarot-grid">
+        <div class="tarot-card" data-emoji="✨">
+            <div class="tarot-card-back">✨</div>
+            <div class="tarot-card-front">
+                <div class="tarot-card-front-content">
+                    <h3>想啥呢，你的愿望一定会实现！</h3>
+                    <p class="wish-message"></p>
+                    <button class="surprise-button">看看最后的惊喜</button>
+                </div>
+            </div>
+        </div>
+        <div class="tarot-card" data-emoji="🌟">
+            <div class="tarot-card-back">🌟</div>
+            <div class="tarot-card-front">
+                <div class="tarot-card-front-content">
+                    <h3>想啥呢，你的愿望一定会实现！</h3>
+                    <p class="wish-message"></p>
+                    <button class="surprise-button">看看最后的惊喜</button>
+                </div>
+            </div>
+        </div>
+        <div class="tarot-card" data-emoji="💫">
+            <div class="tarot-card-back">💫</div>
+            <div class="tarot-card-front">
+                <div class="tarot-card-front-content">
+                    <h3>想啥呢，你的愿望一定会实现！</h3>
+                    <p class="wish-message"></p>
+                    <button class="surprise-button">看看最后的惊喜</button>
+                </div>
+            </div>
+        </div>
+        <div class="tarot-card" data-emoji="💖">
+            <div class="tarot-card-back">💖</div>
+            <div class="tarot-card-front">
+                <div class="tarot-card-front-content">
+                    <h3>想啥呢，你的愿望一定会实现！</h3>
+                    <p class="wish-message"></p>
+                    <button class="surprise-button">看看最后的惊喜</button>
+                </div>
+            </div>
+        </div>
+        <div class="tarot-card" data-emoji="💗">
+            <div class="tarot-card-back">💗</div>
+            <div class="tarot-card-front">
+                <div class="tarot-card-front-content">
+                    <h3>想啥呢，你的愿望一定会实现！</h3>
+                    <p class="wish-message"></p>
+                    <button class="surprise-button">看看最后的惊喜</button>
+                </div>
+            </div>
+        </div>
+        <div class="tarot-card" data-emoji="💙">
+            <div class="tarot-card-back">💙</div>
+            <div class="tarot-card-front">
+                <div class="tarot-card-front-content">
+                    <h3>想啥呢，你的愿望一定会实现！</h3>
+                    <p class="wish-message"></p>
+                    <button class="surprise-button">看看最后的惊喜</button>
+                </div>
+            </div>
+        </div>
+        <div class="tarot-card" data-emoji="✨">
+            <div class="tarot-card-back">✨</div>
+            <div class="tarot-card-front">
+                <div class="tarot-card-front-content">
+                    <h3>想啥呢，你的愿望一定会实现！</h3>
+                    <p class="wish-message"></p>
+                    <button class="surprise-button">看看最后的惊喜</button>
+                </div>
+            </div>
+        </div>
+        <div class="tarot-card" data-emoji="🌟">
+            <div class="tarot-card-back">🌟</div>
+            <div class="tarot-card-front">
+                <div class="tarot-card-front-content">
+                    <h3>想啥呢，你的愿望一定会实现！</h3>
+                    <p class="wish-message"></p>
+                    <button class="surprise-button">看看最后的惊喜</button>
+                </div>
+            </div>
+        </div>
+        <div class="tarot-card" data-emoji="💫">
+            <div class="tarot-card-back">💫</div>
+            <div class="tarot-card-front">
+                <div class="tarot-card-front-content">
+                    <h3>想啥呢，你的愿望一定会实现！</h3>
+                    <p class="wish-message"></p>
+                    <button class="surprise-button">看看最后的惊喜</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 获取所有塔罗牌
+        const tarotCards = document.querySelectorAll('.tarot-card');
+        // 获取所有惊喜按钮
+        const surpriseButtons = document.querySelectorAll('.surprise-button');
+        
+        // 定义祝福语数组
+        const wishes = [
+            "再祝你这一年实验都成功！",
+            "再祝你这一年找高薪工作！",
+            "再祝你这一年轻松毕业！"
+        ];
+        
+        // 为每张塔罗牌添加点击事件
+        tarotCards.forEach(card => {
+            card.addEventListener('click', () => {
+                // 移除之前选中的牌
+                document.querySelector('.tarot-card.selected')?.classList.remove('selected');
+                
+                // 设置当前牌为选中状态
+                card.classList.add('selected');
+                
+                // 让其他牌逐渐消失
+                tarotCards.forEach(otherCard => {
+                    if (otherCard !== card) {
+                        otherCard.classList.add('disappear');
+                    }
+                });
+                
+                // 翻转选中的牌
+                setTimeout(() => {
+                    card.classList.add('flipped');
+                    
+                    // 显示随机祝福语
+                    const wishMessage = card.querySelector('.wish-message');
+                    const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+                    wishMessage.textContent = randomWish;
+                }, 800);
+            });
+        });
+        
+        // 为惊喜按钮添加点击事件
+        surpriseButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                window.location.href = '最终惊喜.html';
+            });
+        });
+    </script>
+</body>
+</html>
